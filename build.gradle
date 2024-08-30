@@ -1,0 +1,47 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'org.graalvm.buildtools.native' version '0.10.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'
+}
+
+group = 'com.pps'
+version = '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'com.pps.app.DemoAppKt'
+}
+
+graalvmNative {
+    binaries {
+        main {
+            buildArgs.add('--enable-preview')
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    toolchain { languageVersion = JavaLanguageVersion.of(21) }
+}
+
+kotlin {
+    sourceCompatibility = JavaVersion.VERSION_21
+    jvmToolchain(21)
+}
